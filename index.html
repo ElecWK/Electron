@@ -1,1 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #131314;
+            color: #f4f4f4;
+        }
+        header {
+            background-color: #131314;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            margin: 0;
+            font-weight: 500;
+            font-size: 24px;
+        }
+        main {
+            text-align: left;
+            padding: 60px 20px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        .hero h2 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 500;
+        }
+        .hero p {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+        .hero button {
+            background-color: white;
+            color: #131314;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .hero button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        footer {
+            background-color: #131314;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .rounded-image {
+            border-radius: 20px;
+            width: 500px;
+            height: auto;
+            margin-right: 20px;
+        }
+        header button {
+            background-color: white;
+            color: #131314;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        header button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        #searchSection {
+            display: none;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+        #searchSection input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        #searchSection button {
+            background-color: white;
+            color: #131314;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        #searchSection button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        #searchSection label {
+            margin-right: 10px;
+        }
+        #searchOutput {
+            margin-top: 20px;
+            text-align: left;
+        }
+        #searchOutput h3 {
+            margin-bottom: 10px;
+        }
+        #searchOutput div {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="margin-left: 20px;">Electron</h1>
+        <button onclick="changeLanguage()" style="margin-right: 20px;">Switch Language</button>
+    </header>
+    <main>
+        <section class="hero">
+            <img src="https://images.adsttc.com/media/images/5d44/14fa/284d/d1fd/3a00/003d/large_jpg/eiffel-tower-in-paris-151-medium.jpg?1564742900" alt="Paris" class="rounded-image">
+            <div class="hero-content">
+                <h2>Welcome to Electron!</h2>
+                <br>
+                <p>Your personal assistant in the world of information.</p>
+                <br>
+                <button onclick="showSearch()">Start with Electron</button>
+            </div>
+        </section>
+        <section id="searchSection">
+            <input type="text" id="queryInput" placeholder="Enter your query">
+            <br><br>
+            <label><input type="radio" name="searchEngine" value="wikipedia" checked> Wikipedia</label>
+            <label><input type="radio" name="searchEngine" value="google"> Google</label>
+            <br><br>
+            <button onclick="search()">Search</button>
+            <div id="searchOutput"></div>
+        </section>
+    </main>
+    <footer>
+        2024 Electron.
+    </footer>
+    <script>
+        const GOOGLE_API_KEY = 'AIzaSyBtqOpptKzn9iwlesClFzpjfZpd-9Gxkc4';
+        const GOOGLE_CX = '52e424627fa7f44f6';
 
+        function changeLanguage() {
+            var lang = document.documentElement.lang;
+            if (lang === 'en') {
+                document.documentElement.lang = 'ru';
+                document.querySelector('h1').textContent = 'Electron';
+                document.querySelector('h2').textContent = 'Добро пожаловать в Electron!';
+                document.querySelector('p').textContent = 'Ваш персональный помощник в мире информации.';
+                document.querySelector('.hero button').textContent = 'Начать с Electron';
+                document.querySelector('footer').textContent = '2024 Electron.';
+                document.querySelector('header button').textContent = 'Изменить язык';
+                document.getElementById('queryInput').placeholder = 'Введите ваш запрос';
+                document.querySelector('#searchSection button').textContent = 'Искать';
+                document.querySelector('label[for="wikipedia"]').textContent = ' Википедия';
+                document.querySelector('label[for="google"]').textContent = ' Гугл';
+            } else {
+                document.documentElement.lang = 'en';
+                document.querySelector('h1').textContent = 'Electron';
+                document.querySelector('h2').textContent = 'Welcome to Electron!';
+                document.querySelector('p').textContent = 'Your personal assistant in the world of information.';
+                document.querySelector('.hero button').textContent = 'Start with Electron';
+                document.querySelector('footer').textContent = '2024 Electron.';
+                document.querySelector('header button').textContent = 'Switch Language';
+                document.getElementById('queryInput').placeholder = 'Enter your query';
+                document.querySelector('#searchSection button').textContent = 'Search';
+                document.querySelector('label[for="wikipedia"]').textContent = ' Wikipedia';
+                document.querySelector('label[for="google"]').textContent = ' Google';
+            }
+        }
+
+        function showSearch() {
+            document.getElementById('searchSection').style.display = 'block';
+        }
+
+        function search() {
+            var query = document.getElementById('queryInput').value;
+            var searchEngine = document.querySelector('input[name="searchEngine"]:checked').value;
+            
+            if (searchEngine === 'wikipedia') {
+                searchWikipedia(query);
+            } else {
+                searchGoogle(query);
+            }
+        }
+
+        function searchWikipedia(query) {
+            var url = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${query}&format=json&origin=*`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var results = data.query.search;
+                    var output = '<h3>Search Results:</h3>';
+                    results.forEach(result => {
+                        output += `
+                            <div>
+                                <h4>${result.title}</h4>
+                                <p>${result.snippet}</p>
+                                <a href="https://en.wikipedia.org/?curid=${result.pageid}" target="_blank">Read more</a>
+                            </div>
+                            <hr>
+                        `;
+                    });
+                    document.getElementById('searchOutput').innerHTML = output;
+                })
+                .catch(error => {
+                    document.getElementById('searchOutput').innerHTML = '<p>An error occurred while fetching data. Please try again later.</p>';
+                });
+        }
+
+        function searchGoogle(query) {
+            var url = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_CX}&q=${query}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var results = data.items;
+                    var output = '<h3>Search Results:</h3>';
+                    results.forEach(result => {
+                        output += `
+                            <div>
+                                <h4>${result.title}</h4>
+                                <p>${result.snippet}</p>
+                                <a href="${result.link}" target="_blank">Read more</a>
+                            </div>
+                            <hr>
+                        `;
+                    });
+                    document.getElementById('searchOutput').innerHTML = output;
+                })
+                .catch(error => {
+                    document.getElementById('searchOutput').innerHTML = '<p>An error occurred while fetching data. Please try again later.</p>';
+                });
+        }
+    </script>
+</body>
+</html>
